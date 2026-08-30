@@ -13,7 +13,7 @@ import {
   stopSession,
 } from "../src/session.js";
 import { readState, type SessionState } from "../src/state.js";
-import { installSkill, printSkill } from "../src/skill.js";
+import { installDefaultSkills, installSkill, printSkill } from "../src/skill.js";
 
 interface CommonOptions {
   minBatteryPercent: number;
@@ -29,8 +29,8 @@ commands:
   status [session-id]   show one session or all recorded sessions
   stop <session-id>     stop one lease
   run [options] -- cmd  hold a lease only while a command runs
-  skill print           print the bundled Codex skill
-  skill install [path]  install the skill (default ~/.agents/skills/awake-axi)
+  skill print           print the bundled agent skill
+  skill install [path]  install for Codex + Claude (or one custom path)
 
 options for start/run:
   --min-battery <1-100> minimum charge on battery (default 35)
@@ -180,7 +180,10 @@ async function main(): Promise<number> {
       return 0;
     }
     if (action === "install") {
-      console.log(`installed: ${await installSkill(target)}`);
+      const installed = target === undefined
+        ? await installDefaultSkills()
+        : [await installSkill(target)];
+      installed.forEach((path) => console.log(`installed: ${path}`));
       return 0;
     }
     throw new Error("skill requires print or install [path]");

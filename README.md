@@ -29,7 +29,9 @@ long agent task starts
 ## Proof, not promise
 
 The repository contains both deterministic integration tests and a captured
-test against the real macOS power-management subsystem.
+test against the real macOS power-management subsystem. It also contains two
+black-box agent runs proving that Codex and Claude discover and invoke the
+skill from a prompt that never names `awake-axi`.
 
 On an arm64 Mac running on battery at 89%, `awake-axi start` reported:
 
@@ -58,6 +60,7 @@ verdict: PASS
 - [Full real-macOS smoke output](docs/evidence/20260830-macos-live-smoke.txt)
 - [Automated check: 7 tests passed](docs/evidence/20260830-automated-check.txt)
 - [Installed skill validation](docs/evidence/20260830-skill-install-validation.txt)
+- [Codex + Claude implicit-invocation evidence](docs/evidence/20260830-agent-adoption-smoke.md)
 
 Reproduce the live assertion check on a Mac:
 
@@ -124,9 +127,11 @@ awake-axi skill install
 ```
 
 `skill install` copies the bundled skill to
-`~/.agents/skills/awake-axi`. The skill teaches Codex when a task is long enough
-to justify a lease, requires it to preserve the returned session ID, and makes
-explicit cleanup part of finishing the task.
+`~/.agents/skills/awake-axi` for Codex and `~/.claude/skills/awake-axi` for
+Claude Code. Both agents can select it automatically from its description. The
+skill teaches them when a task is long enough to justify a lease, requires them
+to preserve the returned session ID, and makes explicit cleanup part of
+finishing the task.
 
 ## Safety boundaries
 
