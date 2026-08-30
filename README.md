@@ -117,12 +117,11 @@ awake-axi start --min-battery 50 --max-hours 4 --poll-seconds 15
 
 ## Install the CLI and skill
 
-Until the npm package is published, install from a checkout:
+Install the CLI from npm, then copy its bundled skill into the personal skill
+directories used by Codex and Claude Code:
 
 ```sh
-npm install
-npm run build
-npm link
+npm install --global awake-axi
 awake-axi skill install
 ```
 
@@ -168,6 +167,23 @@ The design choice and alternative analysis are documented in the
 npm ci
 npm run check
 ```
+
+## Release
+
+Production releases are published to npm by
+`.github/workflows/publish.yml` when a non-prerelease GitHub Release is
+published. The release tag must be `v` followed by the exact version in
+`package.json`; for example, package version `0.2.0` requires tag `v0.2.0`.
+
+Prepare the next version before creating the GitHub Release:
+
+```sh
+npm version patch --no-git-tag-version
+npm run check
+```
+
+The workflow uses npm Trusted Publishing with GitHub OIDC and emits provenance,
+so it does not require a long-lived `NPM_TOKEN` secret.
 
 `npm run check` builds the package, runs pure power-policy tests and subprocess
 integration tests, validates the bundled skill, and checks the npm tarball.
