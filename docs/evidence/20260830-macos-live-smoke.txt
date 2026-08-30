@@ -1,0 +1,18 @@
+probe: awake-axi-live-macos
+captured_at: 2026-08-30T18:43:48Z
+host_os: Darwin
+host_arch: arm64
+node: v26.7.0
+git_head: c2449c82fd267286a323ee1768348bf4603143ce
+power_before:
+Now drawing from 'Battery Power'
+ -InternalBattery-0 (id=22282339)	89%; discharging; 9:28 remaining present: true
+start: {"session_id":"a6512e1bcd69","state":"running","power_source":"battery","battery_percent":89,"sleep_prevented":true,"min_battery_percent":35,"expires_at":"2026-08-30T18:49:48.565Z","monitor_pid":56676,"inhibitor_pid":56678}
+status_active: {"session_id":"a6512e1bcd69","state":"running","power_source":"battery","battery_percent":89,"sleep_prevented":true,"min_battery_percent":35,"expires_at":"2026-08-30T18:49:48.565Z","monitor_pid":56676,"inhibitor_pid":56678}
+assertion_for_inhibitor_pid:
+   pid 56678(caffeinate): [0x0002273800018093] 00:00:00 PreventUserIdleSystemSleep named: "caffeinate command-line tool"
+stop: {"session_id":"a6512e1bcd69","state":"stopped","power_source":"battery","battery_percent":89,"sleep_prevented":false,"min_battery_percent":35,"expires_at":"2026-08-30T18:49:48.565Z","monitor_pid":56676,"inhibitor_pid":null}
+monitor_after_stop: absent
+inhibitor_after_stop: absent
+assertion_after_stop: absent
+verdict: PASS

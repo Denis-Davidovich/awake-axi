@@ -1,0 +1,6 @@
+interface:
+  display_name: "Awake Axi"
+  short_description: "Keep long agent tasks awake when power is safe"
+  default_prompt: "Use $awake-axi to keep this long-running task awake while battery power is sufficient."
+policy:
+  allow_implicit_invocation: true

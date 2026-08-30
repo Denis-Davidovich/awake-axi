@@ -1,0 +1,70 @@
+
+> awake-axi@0.1.0 check
+> npm test && npm run skill:check && npm pack --dry-run
+
+
+> awake-axi@0.1.0 test
+> npm run build && vitest run
+
+
+> awake-axi@0.1.0 build
+> tsc -p tsconfig.json && chmod +x dist/bin/awake-axi.js
+
+
+ RUN  v3.2.7 /Volumes/Data/work/dev.lab/platform/skills/awake-axi/.worktrees/awake-axi-wt-bootstrap
+
+ ✓ tests/power.test.ts (3 tests) 1ms
+ ✓ tests/skill.integration.test.ts (1 test) 39ms
+ ✓ tests/session.integration.test.ts (4 tests) 1844ms
+   ✓ lease lifecycle > toggles the inhibitor with battery level and leaves no monitor after stop  653ms
+   ✓ lease lifecycle > scopes a lease to a wrapped command  357ms
+   ✓ lease lifecycle > persists an error state instead of crashing when the monitor process cannot spawn  338ms
+   ✓ lease lifecycle > keeps the monitor alive and reports an error when the inhibitor cannot spawn  496ms
+
+ Test Files  3 passed (3)
+      Tests  8 passed (8)
+   Start at  22:45:10
+   Duration  1.99s (transform 30ms, setup 0ms, collect 44ms, tests 1.88s, environment 0ms, prepare 81ms)
+
+
+> awake-axi@0.1.0 skill:check
+> node scripts/validate-skill.mjs
+
+Skill is valid!
+
+> awake-axi@0.1.0 prepare
+> npm run build
+
+
+> awake-axi@0.1.0 build
+> tsc -p tsconfig.json && chmod +x dist/bin/awake-axi.js
+
+npm notice
+npm notice 📦  awake-axi@0.1.0
+npm notice Tarball Contents
+npm notice 1.1kB LICENSE
+npm notice 6.5kB README.md
+npm notice 7.1kB dist/bin/awake-axi.js
+npm notice 7.0kB dist/bin/awake-axi.js.map
+npm notice 1.1kB dist/src/power.js
+npm notice 1.2kB dist/src/power.js.map
+npm notice 8.3kB dist/src/session.js
+npm notice 8.5kB dist/src/session.js.map
+npm notice 1.0kB dist/src/skill.js
+npm notice 1.2kB dist/src/skill.js.map
+npm notice 1.1kB dist/src/state.js
+npm notice 1.3kB dist/src/state.js.map
+npm notice 783B package.json
+npm notice 258B skill/awake-axi/agents/openai.yaml
+npm notice 1.4kB skill/awake-axi/SKILL.md
+npm notice Tarball Details
+npm notice name: awake-axi
+npm notice version: 0.1.0
+npm notice filename: awake-axi-0.1.0.tgz
+npm notice package size: 13.8 kB
+npm notice unpacked size: 48.0 kB
+npm notice shasum: e8c62c2c34babb619855d71d53bf7ea10114fe59
+npm notice integrity: sha512-E76AV+wIgtRoB[...]zAcpdBNLawSdw==
+npm notice total files: 15
+npm notice
+awake-axi-0.1.0.tgz
