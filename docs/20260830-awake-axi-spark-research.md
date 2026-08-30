@@ -55,7 +55,7 @@ prefer a Keepresso backend/integration instead of reimplementing them.
   `disablesleep` setting behind.
 - Per-session IDs avoid broad process killing and make concurrent agents safe.
 - Agent-first interface: compact status, scoped `run -- command`, hard TTL, and
-  a directly installable Codex skill.
+  a directly installable Codex and Claude skill.
 - Keeps display sleep and screen locking intact by using only `caffeinate -i`.
 
 ### Weaknesses

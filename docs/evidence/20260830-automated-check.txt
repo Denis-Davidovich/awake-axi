@@ -11,18 +11,18 @@
 > tsc -p tsconfig.json && chmod +x dist/bin/awake-axi.js
 
 
- RUN  v3.2.7 /Users/den.dav.global/.no-mistakes/worktrees/8713555cd42c/01M19ZSMPM000MJ1GX602PKY2E
+ RUN  v3.2.7 /Users/den.dav.global/.no-mistakes/worktrees/8713555cd42c/01M1A2NQVJWFKXBMHA5PY7FPZH
 
- ✓ tests/power.test.ts (3 tests) 2ms
- ✓ tests/session.integration.test.ts (4 tests) 1931ms
-   ✓ lease lifecycle > toggles the inhibitor with battery level and leaves no monitor after stop  734ms
-   ✓ lease lifecycle > scopes a lease to a wrapped command  348ms
-   ✓ lease lifecycle > keeps the monitor alive and reports an error when the inhibitor cannot spawn  601ms
+ ✓ tests/power.test.ts (3 tests) 1ms
+ ✓ tests/session.integration.test.ts (4 tests) 1780ms
+   ✓ lease lifecycle > toggles the inhibitor with battery level and leaves no monitor after stop  655ms
+   ✓ lease lifecycle > scopes a lease to a wrapped command  385ms
+   ✓ lease lifecycle > keeps the monitor alive and reports an error when the inhibitor cannot spawn  498ms
 
  Test Files  2 passed (2)
       Tests  7 passed (7)
-   Start at  21:53:26
-   Duration  2.11s (transform 23ms, setup 0ms, collect 24ms, tests 1.93s, environment 0ms, prepare 60ms)
+   Start at  22:42:26
+   Duration  2.05s (transform 30ms, setup 0ms, collect 40ms, tests 1.78s, environment 0ms, prepare 64ms)
 
 
 > awake-axi@0.1.0 skill:check
@@ -41,15 +41,15 @@ npm notice
 npm notice 📦  awake-axi@0.1.0
 npm notice Tarball Contents
 npm notice 1.1kB LICENSE
-npm notice 5.9kB README.md
-npm notice 6.9kB dist/bin/awake-axi.js
-npm notice 6.8kB dist/bin/awake-axi.js.map
+npm notice 6.5kB README.md
+npm notice 7.1kB dist/bin/awake-axi.js
+npm notice 7.0kB dist/bin/awake-axi.js.map
 npm notice 1.1kB dist/src/power.js
 npm notice 1.2kB dist/src/power.js.map
 npm notice 8.3kB dist/src/session.js
 npm notice 8.5kB dist/src/session.js.map
-npm notice 843B dist/src/skill.js
-npm notice 1.0kB dist/src/skill.js.map
+npm notice 1.0kB dist/src/skill.js
+npm notice 1.2kB dist/src/skill.js.map
 npm notice 1.1kB dist/src/state.js
 npm notice 1.3kB dist/src/state.js.map
 npm notice 783B package.json
@@ -59,10 +59,10 @@ npm notice Tarball Details
 npm notice name: awake-axi
 npm notice version: 0.1.0
 npm notice filename: awake-axi-0.1.0.tgz
-npm notice package size: 13.4 kB
-npm notice unpacked size: 46.7 kB
-npm notice shasum: 580451d8976c8efb7daae95a7bb4a250d3091c7c
-npm notice integrity: sha512-JJTiHoaiFbnGb[...]iCHY41WRYPn+w==
+npm notice package size: 13.8 kB
+npm notice unpacked size: 48.0 kB
+npm notice shasum: e8c62c2c34babb619855d71d53bf7ea10114fe59
+npm notice integrity: sha512-E76AV+wIgtRoB[...]zAcpdBNLawSdw==
 npm notice total files: 15
 npm notice
 awake-axi-0.1.0.tgz

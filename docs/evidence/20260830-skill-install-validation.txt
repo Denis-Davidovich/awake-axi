@@ -1,5 +1,5 @@
 probe: awake-axi-skill-install
-captured_at: 2026-08-30T18:28:45Z
+captured_at: 2026-08-30T19:42:49Z
 cli_path: /opt/homebrew/bin/awake-axi
 usage: awake-axi <command> [options]
 
@@ -8,8 +8,8 @@ commands:
   status [session-id]   show one session or all recorded sessions
   stop <session-id>     stop one lease
   run [options] -- cmd  hold a lease only while a command runs
-  skill print           print the bundled Codex skill
-  skill install [path]  install the skill (default ~/.agents/skills/awake-axi)
+  skill print           print the bundled agent skill
+  skill install [path]  install for Codex + Claude (or one custom path)
 
 options for start/run:
   --min-battery <1-100> minimum charge on battery (default 35)
@@ -18,5 +18,5 @@ options for start/run:
   --json                JSON output (start/status/stop)
 
 Skill is valid!
-installed_skill_matches_repository: true
+installed_skill_matches_repository: true (both ~/.agents/skills/awake-axi and ~/.claude/skills/awake-axi)
 verdict: PASS
