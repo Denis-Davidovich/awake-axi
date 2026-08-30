@@ -106,4 +106,33 @@ describe("lease lifecycle", () => {
     expect(typeof state.lastError).toBe("string");
     expect(state.lastError.length).toBeGreaterThan(0);
   });
+
+  it("keeps the monitor alive and reports an error when the inhibitor cannot spawn", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "awake-axi-inhibitorfail-"));
+    temporaryDirectories.push(directory);
+    const pmset = join(directory, "pmset");
+    await writeFile(pmset, "#!/bin/sh\nprintf \"Now drawing from 'AC Power'\\n\"\n", { mode: 0o755 });
+    const env = {
+      ...process.env,
+      AWAKE_AXI_STATE_DIR: join(directory, "state"),
+      AWAKE_AXI_PMSET: pmset,
+      AWAKE_AXI_CAFFEINATE: join(directory, "no-such-caffeinate-binary"),
+    };
+
+    const started = JSON.parse(await command(["start", "--poll-seconds", "0.1", "--json"], env));
+    expect(started.state).toBe("running");
+    const statePath = join(env.AWAKE_AXI_STATE_DIR, `${started.session_id}.json`);
+
+    await waitFor(async () => {
+      const state = JSON.parse(await readFile(statePath, "utf8"));
+      return state.sleepPrevented === false && typeof state.lastError === "string" && state.lastError.length > 0;
+    });
+
+    const ps = spawn("/bin/ps", ["-p", String(started.monitor_pid)]);
+    const exitCode = await new Promise<number | null>((resolvePromise) => ps.on("close", resolvePromise));
+    expect(exitCode).toBe(0);
+
+    const stopped = JSON.parse(await command(["stop", started.session_id, "--json"], env));
+    expect(stopped.state).toBe("stopped");
+  });
 });

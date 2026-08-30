@@ -116,6 +116,7 @@ export async function monitorSession(sessionId: string): Promise<void> {
   const expiresAt = new Date(state.expiresAt).getTime();
   let stopRequested = false;
   let inhibitor: ChildProcess | null = null;
+  let inhibitorError: string | null = null;
   const requestStop = () => { stopRequested = true; };
   process.on("SIGTERM", requestStop);
   process.on("SIGINT", requestStop);
@@ -128,15 +129,23 @@ export async function monitorSession(sessionId: string): Promise<void> {
       try {
         const power = await readPowerStatus();
         const sufficient = isPowerSufficient(power, state.minBatteryPercent);
-        const inhibitorAlive = inhibitor !== null && inhibitor.exitCode === null && inhibitor.signalCode === null;
-        if (sufficient && !inhibitorAlive) {
-          const caffeinate = process.env.AWAKE_AXI_CAFFEINATE ?? "/usr/bin/caffeinate";
-          inhibitor = spawn(caffeinate, ["-i", "-w", String(process.pid)], {
-            stdio: "ignore",
-          });
-        } else if (!sufficient && inhibitorAlive) {
+        const spawnFailure = inhibitorError;
+        if (spawnFailure !== null) {
+          inhibitorError = null;
           stopChild(inhibitor);
           inhibitor = null;
+        } else {
+          const inhibitorAlive = inhibitor !== null && inhibitor.exitCode === null && inhibitor.signalCode === null;
+          if (sufficient && !inhibitorAlive) {
+            const caffeinate = process.env.AWAKE_AXI_CAFFEINATE ?? "/usr/bin/caffeinate";
+            inhibitor = spawn(caffeinate, ["-i", "-w", String(process.pid)], {
+              stdio: "ignore",
+            });
+            inhibitor.on("error", (error) => { inhibitorError = error.message; });
+          } else if (!sufficient && inhibitorAlive) {
+            stopChild(inhibitor);
+            inhibitor = null;
+          }
         }
         const active = inhibitor !== null && inhibitor.exitCode === null && inhibitor.signalCode === null;
         state = {
@@ -147,7 +156,7 @@ export async function monitorSession(sessionId: string): Promise<void> {
           sleepPrevented: active,
           inhibitorPid: active ? (inhibitor?.pid ?? null) : null,
           checkedAt: isoNow(),
-          lastError: undefined,
+          lastError: spawnFailure ?? undefined,
         };
       } catch (error) {
         stopChild(inhibitor);
