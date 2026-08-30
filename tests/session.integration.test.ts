@@ -85,4 +85,25 @@ describe("lease lifecycle", () => {
     const state = JSON.parse(await readFile(join(env.AWAKE_AXI_STATE_DIR, stateFile), "utf8"));
     expect(state.state).toBe("stopped");
   });
+
+  it("persists an error state instead of crashing when the monitor process cannot spawn", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "awake-axi-spawnfail-"));
+    temporaryDirectories.push(directory);
+    const pmset = join(directory, "pmset");
+    await writeFile(pmset, "#!/bin/sh\nprintf \"Now drawing from 'AC Power'\\n\"\n", { mode: 0o755 });
+    const env = {
+      ...process.env,
+      AWAKE_AXI_STATE_DIR: join(directory, "state"),
+      AWAKE_AXI_PMSET: pmset,
+      AWAKE_AXI_NODE_BIN: join(directory, "no-such-node-binary"),
+    };
+
+    await expect(execFileAsync(process.execPath, [cli, "start", "--json"], { env })).rejects.toMatchObject({ code: 1 });
+
+    const [stateFile] = (await readdir(env.AWAKE_AXI_STATE_DIR)).filter((name) => name.endsWith(".json"));
+    const state = JSON.parse(await readFile(join(env.AWAKE_AXI_STATE_DIR, stateFile), "utf8"));
+    expect(state.state).toBe("error");
+    expect(typeof state.lastError).toBe("string");
+    expect(state.lastError.length).toBeGreaterThan(0);
+  });
 });

@@ -2,7 +2,7 @@ import { closeSync, openSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
 import { randomBytes } from "node:crypto";
 import { spawn, type ChildProcess } from "node:child_process";
-import { basename, join } from "node:path";
+import { join } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 import { isPowerSufficient, readPowerStatus } from "./power.js";
@@ -79,21 +79,31 @@ export async function startSession(options: StartOptions, cliPath: string): Prom
 
   const logPath = join(stateDirectory(), `${sessionId}.log`);
   const logFd = openSync(logPath, "a", 0o600);
-  const monitor = spawn(process.execPath, [cliPath, "_monitor", sessionId], {
+  const nodeBinary = process.env.AWAKE_AXI_NODE_BIN ?? process.execPath;
+  const monitor = spawn(nodeBinary, [cliPath, "_monitor", sessionId], {
     detached: true,
     env: process.env,
     stdio: ["ignore", logFd, logFd],
   });
   closeSync(logFd);
+  let spawnError: string | null = null;
+  monitor.on("error", (error) => { spawnError = error.message; });
   monitor.unref();
 
   const deadline = Date.now() + 3_000;
   while (Date.now() < deadline) {
+    if (spawnError !== null) return await persistStartError(state, spawnError);
     await delay(50);
     const current = await readState(sessionId);
     if (current.monitorPid === monitor.pid || current.state === "error") return current;
   }
-  return { ...state, state: "error", lastError: "monitor failed to start" };
+  return await persistStartError(state, spawnError ?? "monitor failed to start");
+}
+
+async function persistStartError(state: SessionState, message: string): Promise<SessionState> {
+  const errored: SessionState = { ...state, state: "error", lastError: message };
+  await writeState(errored);
+  return errored;
 }
 
 function stopChild(child: ChildProcess | null): void {
@@ -204,8 +214,4 @@ export async function listSessions(): Promise<SessionState[]> {
     }
   }
   return states;
-}
-
-export function commandName(cliPath: string): string {
-  return basename(cliPath).replace(/\.js$/, "");
 }
