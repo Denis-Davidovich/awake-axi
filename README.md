@@ -56,7 +56,7 @@ verdict: PASS
 ```
 
 - [Full real-macOS smoke output](docs/evidence/20260830-macos-live-smoke.txt)
-- [Automated check: 6 tests passed](docs/evidence/20260830-automated-check.txt)
+- [Automated check: 7 tests passed](docs/evidence/20260830-automated-check.txt)
 - [Installed skill validation](docs/evidence/20260830-skill-install-validation.txt)
 
 Reproduce the live assertion check on a Mac:
