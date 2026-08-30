@@ -58,7 +58,7 @@ verdict: PASS
 ```
 
 - [Full real-macOS smoke output](docs/evidence/20260830-macos-live-smoke.txt)
-- [Automated check: 7 tests passed](docs/evidence/20260830-automated-check.txt)
+- [Automated check: 8 tests passed](docs/evidence/20260830-automated-check.txt)
 - [Installed skill validation](docs/evidence/20260830-skill-install-validation.txt)
 - [Codex + Claude implicit-invocation evidence](docs/evidence/20260830-agent-adoption-smoke.md)
 
