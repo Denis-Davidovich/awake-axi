@@ -57,10 +57,10 @@ assertion_after_stop: absent
 verdict: PASS
 ```
 
-- [Full real-macOS smoke output](docs/evidence/20260830-macos-live-smoke.txt)
-- [Automated check: 8 tests passed](docs/evidence/20260830-automated-check.txt)
-- [Installed skill validation](docs/evidence/20260830-skill-install-validation.txt)
-- [Codex + Claude implicit-invocation evidence](docs/evidence/20260830-agent-adoption-smoke.md)
+- [Full real-macOS smoke output](https://github.com/Denis-Davidovich/awake-axi/blob/main/docs/evidence/20260830-macos-live-smoke.txt)
+- [Automated check: 8 tests passed](https://github.com/Denis-Davidovich/awake-axi/blob/main/docs/evidence/20260830-automated-check.txt)
+- [Installed skill validation](https://github.com/Denis-Davidovich/awake-axi/blob/main/docs/evidence/20260830-skill-install-validation.txt)
+- [Codex + Claude implicit-invocation evidence](https://github.com/Denis-Davidovich/awake-axi/blob/main/docs/evidence/20260830-agent-adoption-smoke.md)
 
 Reproduce the live assertion check on a Mac:
 
@@ -159,7 +159,7 @@ awake-axi is intentionally smaller than a general power-management app:
   lease that it can own and prove end to end.
 
 The design choice and alternative analysis are documented in the
-[spark research and SWOT](docs/20260830-awake-axi-spark-research.md).
+[spark research and SWOT](https://github.com/Denis-Davidovich/awake-axi/blob/main/docs/20260830-awake-axi-spark-research.md).
 
 ## Development
 
