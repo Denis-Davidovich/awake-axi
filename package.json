@@ -1,9 +1,17 @@
 {
   "name": "awake-axi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Battery-aware macOS sleep inhibition for long-running agent tasks",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Denis-Davidovich/awake-axi.git"
+  },
+  "homepage": "https://github.com/Denis-Davidovich/awake-axi#readme",
+  "bugs": {
+    "url": "https://github.com/Denis-Davidovich/awake-axi/issues"
+  },
   "engines": {
     "node": ">=20"
   },
