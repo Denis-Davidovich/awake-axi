@@ -79,6 +79,7 @@ then proves that the PID and assertion disappear after cleanup.
 | a crashed or forgotten task holds the Mac forever | hard expiry, 8 hours by default | persisted `expires_at`; monitor exits and releases its child |
 | one agent stops another agent's protection | unique session IDs and validated monitor PIDs | `stop` accepts one session ID and verifies process ownership before signalling |
 | the detached monitor cannot start | fail closed and persist an error state | subprocess test supplies a missing runtime binary and verifies an error instead of a crash |
+| the inhibitor fails to spawn while a lease is already running | monitor stays alive, persists the error, and retries on the next poll instead of crashing | integration test breaks the caffeinate path mid-lease and verifies the monitor process survives with `lastError` set |
 | keeping the system awake weakens screen privacy | only idle system sleep is inhibited | no `caffeinate -d`; display sleep and screen locking remain available |
 
 ## Quick start
