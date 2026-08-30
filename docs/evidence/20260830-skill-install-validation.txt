@@ -1,0 +1,22 @@
+probe: awake-axi-skill-install
+captured_at: 2026-08-30T18:28:45Z
+cli_path: /opt/homebrew/bin/awake-axi
+usage: awake-axi <command> [options]
+
+commands:
+  start                 start a background battery-aware lease
+  status [session-id]   show one session or all recorded sessions
+  stop <session-id>     stop one lease
+  run [options] -- cmd  hold a lease only while a command runs
+  skill print           print the bundled Codex skill
+  skill install [path]  install the skill (default ~/.agents/skills/awake-axi)
+
+options for start/run:
+  --min-battery <1-100> minimum charge on battery (default 35)
+  --max-hours <hours>   hard lease expiry (default 8)
+  --poll-seconds <sec>  power check interval (default 30)
+  --json                JSON output (start/status/stop)
+
+Skill is valid!
+installed_skill_matches_repository: true
+verdict: PASS

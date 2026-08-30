@@ -1,0 +1,32 @@
+{
+  "name": "awake-axi",
+  "version": "0.1.0",
+  "description": "Battery-aware macOS sleep inhibition for long-running agent tasks",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "awake-axi": "./dist/bin/awake-axi.js"
+  },
+  "files": [
+    "dist",
+    "skill",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && chmod +x dist/bin/awake-axi.js",
+    "test": "npm run build && vitest run",
+    "check": "npm test && npm run skill:check && npm pack --dry-run",
+    "skill:check": "node scripts/validate-skill.mjs",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run check"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
